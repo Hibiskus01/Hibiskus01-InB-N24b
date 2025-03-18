@@ -3,42 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JS Code Editor</title>
+    <title>Problem 1: "Hallo, Welt!" ausgeben</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
-        textarea { width: 90%; height: 150px; font-size: 16px; }
-        button { margin-top: 10px; padding: 10px; font-size: 16px; cursor: pointer; }
-        pre { background: #f4f4f4; padding: 10px; text-align: left; white-space: pre-wrap; }
+        body { background-color: #f8f9fa; }
+        .container { max-width: 800px; }
+        pre { background-color: #e9ecef; padding: 10px; border-radius: 5px; }
+        textarea { width: 100%; height: 150px; font-family: monospace; }
+        #console-output { background-color: black; color: lime; padding: 10px; height: 150px; overflow-y: auto; }
     </style>
 </head>
-<body>
+<body class="container mt-5">
+<h1 class="text-primary">Problem 2: 2 zahlen addiere.</h1>
+<p class="lead">Schreibe ein Programm, das 2 zahlen addiert und in die Konsole ausgibt.</p>
 
-    <h2>Interaktiver JavaScript Editor</h2>
-    <textarea id="code">
-let a = 3;
-let b = 5;
-let summe = a + b;
-console.log(summe);
-    </textarea>
-    <br>
-    <button onclick="runCode()">▶ Code ausführen</button>
-    <h3>Ergebnis:</h3>
-    <pre id="output"></pre>
+<h3>Probiere es selbst:</h3>
+<textarea id="code-editor">// code here:</textarea>
+<button class="btn btn-success mt-2" onclick="runCode()">Ausführen</button>
 
-    <script>
-        function runCode() {
-            const code = document.getElementById("code").value;
-            try {
-                const result = new Function(code)(); 
-                document.getElementById("output").textContent = result ?? "Code erfolgreich ausgeführt! (siehe Konsole)";
-                console.clear();
-                console.log("Konsolenausgabe:");
-                console.log(result);
-            } catch (error) {
-                document.getElementById("output").textContent = "Fehler: " + error.message;
-            }
+<h3 class="mt-3">Konsole:</h3>
+<div id="console-output"></div>
+
+<button class="btn btn-info mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#solution">Lösung anzeigen</button>
+<div id="solution" class="collapse mt-3">
+    <h3>Beispielcode:</h3>
+    <pre><code>let a,b;
+a = 3;
+b = 4;
+console.log(a + b);</code></pre>
+</div>
+<div>
+    <a href="index.html" class="btn btn-secondary mt-3">Zurück zur Übersicht</a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function runCode() {
+        const code = document.getElementById("code-editor").value;
+        const consoleOutput = document.getElementById("console-output");
+        consoleOutput.innerHTML = ""; // Leere die Konsole vor jeder Ausführung
+
+        const originalConsoleLog = console.log;
+        console.log = function(message) {
+            consoleOutput.innerHTML += message + "<br>";
+        };
+
+        try {
+            eval(code);
+        } catch (error) {
+            consoleOutput.innerHTML += "Fehler: " + error + "<br>";
         }
-    </script>
 
+        console.log = originalConsoleLog; // Konsole zurücksetzen
+    }
+</script>
 </body>
 </html>
