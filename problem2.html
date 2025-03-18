@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Code Editor</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        textarea { width: 90%; height: 150px; font-size: 16px; }
+        button { margin-top: 10px; padding: 10px; font-size: 16px; cursor: pointer; }
+        pre { background: #f4f4f4; padding: 10px; text-align: left; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+
+    <h2>Interaktiver JavaScript Editor</h2>
+    <textarea id="code">
+let a = 3;
+let b = 5;
+let summe = a + b;
+console.log(summe);
+    </textarea>
+    <br>
+    <button onclick="runCode()">▶ Code ausführen</button>
+    <h3>Ergebnis:</h3>
+    <pre id="output"></pre>
+
+    <script>
+        function runCode() {
+            const code = document.getElementById("code").value;
+            try {
+                const result = new Function(code)(); 
+                document.getElementById("output").textContent = result ?? "Code erfolgreich ausgeführt! (siehe Konsole)";
+                console.clear();
+                console.log("Konsolenausgabe:");
+                console.log(result);
+            } catch (error) {
+                document.getElementById("output").textContent = "Fehler: " + error.message;
+            }
+        }
+    </script>
+
+</body>
+</html>
