@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problem 5: Hallo, Welt! 2.0</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 800px; }
+        pre { background-color: #e9ecef; padding: 10px; border-radius: 5px; }
+        textarea { width: 100%; height: 150px; font-family: monospace; }
+        #console-output { background-color: black; color: lime; padding: 10px; height: 150px; overflow-y: auto; }
+    </style>
+</head>
+<body class="container mt-5">
+<h1 class="text-primary">Problem 5: Hallo, Welt! 2.0</h1>
+<p class="lead">Erstelle eine Funktion, die "Hallo, Welt!" in die Konsole ausgibt. </p>
+
+<h3>Probiere es selbst:</h3>
+<textarea id="code-editor">// code here:</textarea>
+<button class="btn btn-success mt-2" onclick="runCode()">Ausführen</button>
+
+<h3 class="mt-3">Konsole:</h3>
+<div id="console-output"></div>
+
+<button class="btn btn-info mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#solution">Lösung anzeigen</button>
+<div id="solution" class="collapse mt-3">
+    <h3>Beispielcode:</h3>
+    <pre><code>function sayHello() {
+    console.log("Hallo, Welt!");
+}
+sayHello();
+</code></pre>
+</div>
+<div>
+    <a href="index.html" class="btn btn-secondary mt-3">Zurück zur Übersicht</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function runCode() {
+        const code = document.getElementById("code-editor").value;
+        const consoleOutput = document.getElementById("console-output");
+        consoleOutput.innerHTML = ""; // Leere die Konsole vor jeder Ausführung
+
+        const originalConsoleLog = console.log;
+        console.log = function(message) {
+            consoleOutput.innerHTML += message + "<br>";
+        };
+
+        try {
+            eval(code);
+        } catch (error) {
+            consoleOutput.innerHTML += "Fehler: " + error + "<br>";
+        }
+
+        console.log = originalConsoleLog; // Konsole zurücksetzen
+    }
+</script>
+</body>
+</html>
